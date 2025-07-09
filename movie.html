@@ -69,7 +69,7 @@
   document.addEventListener("keydown", (ev) => {if(ev.key == 'f'){ofs()} else if(ev.key == 'i'){if(document.querySelector('dialog').style.display == 'block'){document.querySelector('dialog').style.display = 'none'} else{document.querySelector('dialog').style.display = 'block'}}})
    let url = new URL(window.location.href)
    let host = 'look-at-movies.glitch.me'
-   window.onload = function(){if(url.hostname != host){document.body.innerHTML = 'nah'}}
+   //window.onload = function(){if(url.hostname != host){document.body.innerHTML = 'nah'}}
   document.querySelector('#title').href = `https://${url.hostname}`
 function ofs() {
  var elem = document.querySelector('#frame')
