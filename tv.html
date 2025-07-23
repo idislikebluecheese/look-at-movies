@@ -91,7 +91,7 @@
    let url = new URL(window.location.href)
    let host = 'look-at-movies.glitch.me'
   // window.onload = function(){if(url.hostname != host){document.body.innerHTML = 'nah'}
-document.querySelector(".epdiv").style["max-height"] = document.querySelector("#frame").clientHeight}
+document.querySelector(".epdiv").style["max-height"] = document.querySelector("#frame").clientHeight
   document.querySelector('#title').href = `https://${url.hostname}/look-at-movies`
 function ofs() {
  var elem = document.querySelector('#frame')
@@ -152,7 +152,7 @@ async function info(){
   last_air_date: ${json.last_air_date}
   name: ${json.name}
   homepage: ${json.homepage}
-  vote_count: ${json.vote_count}
+  vote_count: ${json.vote_coun
   id: ${json.id}
   imdb_id: ${jsonids.imdb_id}
   tvdb_id: ${jsonids.tvdb_id}
@@ -209,7 +209,7 @@ Could not retrive Episode info
     name: ${json.name}
     air_date: ${json.air_date}
     vote_average: ${json.vote_average}
-    vote_count: ${json.vote_count}
+    vote_count: ${json.vote_coun
     episode_number (series): ${await listep(json.name.toLowerCase())}
     still_path: ${json.still_path}
     overview: [${json.overview}]
@@ -266,7 +266,7 @@ try{
     aa.appendChild(op)
     op.innerText = `Episode ${i}: ${json.episodes[i - 1].name}`
     op.className = `episode${i}`
-    aa.href = `https://${url.host}/look-at-movies/tv.html?id=${url.searchParams.get("id")}&s=${season}&e=${i}` //await listep(json.name.toLowerCase())     document.querySelector("#nextb").innerText = ``
+    aa.href = `https://${url.hos/look-at-movies/tv.html?id=${url.searchParams.get("id")}&s=${season}&e=${i}` //await listep(json.name.toLowerCase())     document.querySelector("#nextb").innerText = ``
       
   }
    if(season == url.searchParams.get('s')){document.querySelector(`.episode${url.searchParams.get('e')}`).style.color = '#77777e';
