@@ -44,7 +44,7 @@
     //window.onload = () => {if(url.hostname != 'look-at-movies.glitch.me'){document.body.innerHTML = 'NAH';}}
 document.addEventListener("contextmenu", (e) => e.preventDefault());
     document.addEventListener("keydown", (e) => {if(e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.shiftKey && e.keyCode === 74) || (e.ctrlKey && e.keyCode === 85)){e.preventDefault()}})
-    document.querySelector('#search').addEventListener("change", (ev) => {document.querySelector('#search').value == ''? window.location.href = `https://${url.hostname}` : window.location.href = `https://${url.hostname}?search=${btoa(document.querySelector('#search').value)}`}) 
+    document.querySelector('#search').addEventListener("change", (ev) => {document.querySelector('#search').value == ''? window.location.href = `https://${url.hostname}` : window.location.href = `https://${url.hostname}/look-at-movies/?search=${btoa(document.querySelector('#search').value)}`}) 
 async function cl(url, title, id){
   const api = url
   try{
