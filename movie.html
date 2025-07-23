@@ -70,7 +70,7 @@
    let url = new URL(window.location.href)
    let host = 'look-at-movies.glitch.me'
    //window.onload = function(){if(url.hostname != host){document.body.innerHTML = 'nah'}}
-  document.querySelector('#title').href = `https://${url.hostname}`
+  document.querySelector('#title').href = `https://${url.hostname}/look-at-movies`
 function ofs() {
  var elem = document.querySelector('#frame')
   if (elem.requestFullscreen) {
@@ -86,7 +86,7 @@ async function info(){
   try{
     const res = await fetch(urll)
     const json = await res.json()
-        if(res.status == 404){window.alert("Invalid TMDB id"); window.location.href = `https://${url.hostname}`}
+        if(res.status == 404){window.alert("Invalid TMDB id"); window.location.href = `https://${url.hostname}/look-at-movies`}
     document.title = `FreeStreamer 🎬 - ${json.title}`
     if(!res.ok){throw new Error(`code ${res.status}`)}
     document.querySelector('#infop').innerText = `original_title: ${json.original_title}
