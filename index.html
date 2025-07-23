@@ -65,7 +65,7 @@ async function cl(url, title, id){
 href.appendChild(div)
 div.appendChild(rating)
 if(json.results[i].media_type != undefined){var tvormovie = json.results[i].media_type; if(tvormovie == 'tv'){var sss = '&s=1&e=1'} else{var sss = ''}} else if(json.results[i].name != undefined){var tvormovie = 'tv'; var sss = '&s=1&e=1'} else{var tvormovie = 'movie'; var sss = ''}
-href.href = `https://${url.host}/${tvormovie}.html?id=${json.results[i].id}${sss}`
+href.href = `https://${url.host}/look-at-movies/${tvormovie}.html?id=${json.results[i].id}${sss}`
 const title = document.createElement("p")
 div.appendChild(title)
 
