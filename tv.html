@@ -90,8 +90,7 @@
   document.addEventListener("keydown", (ev) => {if(ev.key == 'f'){ofs()} else if(ev.key == 'i'){if(document.querySelector('dialog').style.display == 'block'){document.querySelector('dialog').style.display = 'none'} else{document.querySelector('dialog').style.display = 'block'}}})
    let url = new URL(window.location.href)
    let host = 'look-at-movies.glitch.me'
-  // window.onload = function(){if(url.hostname != host){document.body.innerHTML = 'nah'}
-document.querySelector(".epdiv").style["max-height"] = document.querySelector("#frame").clientHeight
+  window.onload = function(){document.querySelector(".epdiv").style["max-height"] = document.querySelector("#frame").clientHeight}
   document.querySelector('#title').href = `https://${url.hostname}/look-at-movies`
 function ofs() {
  var elem = document.querySelector('#frame')
@@ -157,7 +156,7 @@ async function info(){
   imdb_id: ${jsonids.imdb_id}
   tvdb_id: ${jsonids.tvdb_id}
   imdb_title_page: https://imdb.com/title/${jsonids.imdb_id}
-  episodehive_page: https://episodehive.com/tv-shows/${json.name.toLowerCase().replaceAll(" ", "-")}
+  episodehive_page: https://episodehive.com/tv-shows/${json.name.toLowerCase().replaceAll(" ", "-").replaceAll(":", "")}
   vote_average: ${json.vote_average}
   popularity: ${json.popularity}
   number_of_episodes: ${json.number_of_episodes}
