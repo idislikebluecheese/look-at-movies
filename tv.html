@@ -156,7 +156,7 @@ async function info(){
   imdb_id: ${jsonids.imdb_id}
   tvdb_id: ${jsonids.tvdb_id}
   imdb_title_page: https://imdb.com/title/${jsonids.imdb_id}
-  episodehive_page: https://episodehive.com/tv-shows/${json.name.toLowerCase().replaceAll(" ", "-").replaceAll(/[:.\\/-]/g, "")}
+  episodehive_page: https://episodehive.com/tv-shows/${json.name.toLowerCase().replaceAll(" ", "-").replaceAll(/[:.\\/]/g, "")}
   vote_average: ${json.vote_average}
   popularity: ${json.popularity}
   number_of_episodes: ${json.number_of_episodes}
