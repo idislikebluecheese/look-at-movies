@@ -21,18 +21,11 @@
      
     </header>
     <hr style="opacity:20%; width:100%">
-   <div id="movies">
-    </div>
-    <div id="shows">
-    </div>
-        <div id="inth">
-    </div>
-    <div id="multi">
-      
-    </div>
-    <div id="searchdiv">
-      
-    </div>
+   <div id="movies"></div>
+    <div id="shows"></div>
+        <div id="inth"></div>
+    <div id="multi"></div>
+    <div id="searchdiv"></div>
     <div>
       <br>
       <br>
@@ -44,12 +37,12 @@
     //window.onload = () => {if(url.hostname != 'look-at-movies.glitch.me'){document.body.innerHTML = 'NAH';}}
 document.addEventListener("contextmenu", (e) => e.preventDefault());
     document.addEventListener("keydown", (e) => {if(e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.shiftKey && e.keyCode === 74) || (e.ctrlKey && e.keyCode === 85)){e.preventDefault()}})
-    document.querySelector('#search').addEventListener("change", (ev) => {document.querySelector('#search').value == ''? window.location.href = `https://${url.hostname}/look-at-movies` : window.location.href = `https://${url.hostname}/look-at-movies/?search=${btoa(document.querySelector('#search').value)}`}) 
+    document.querySelector('#search').addEventListener("change", (ev) => {document.querySelector('#search').value == ''? window.location.href = `https://${url.hostname}/look-at-movies` : window.location.href = `https://${url.hostname}/look-at-movies/?search=${encodeURIComponent(document.querySelector('#search').value.trim())}`}) 
 async function cl(url, title, id){
   const api = url
   try{
     const url = new URL(window.location.href)
-    document.querySelector(`#${id}`).innerHTML = `<hr style="opacity:0%; width:100%"> <h1 style='color:grey; text-align:center'>${title}</h1>`
+    document.getElementById(id).innerHTML = `<hr style="opacity:0%; width:100%"> <h1 style='color:grey; text-align:center'>${title}</h1>`
     
    const res = await fetch(api)
    const json = await res.json()
@@ -61,7 +54,7 @@ async function cl(url, title, id){
         const div = document.createElement("div")
         const href = document.createElement("a")
         const rating = document.createElement("p")
-  document.querySelector(`#${id}`).appendChild(href)
+  document.getElementById(id).appendChild(href)
 href.appendChild(div)
 div.appendChild(rating)
 if(json.results[i].media_type != undefined){var tvormovie = json.results[i].media_type; if(tvormovie == 'tv'){var sss = '&s=1&e=1'} else{var sss = ''}} else if(json.results[i].name != undefined){var tvormovie = 'tv'; var sss = '&s=1&e=1'} else{var tvormovie = 'movie'; var sss = ''}
@@ -75,15 +68,16 @@ rating.className = 'rating'
 div.className = 'div'
 title.className = 'p'
 div.style.animationDelay = `${i * 0.05}s`
-json.results[i].name == undefined? title.innerText = json.results[i].title : title.innerText = json.results[i].name
+json.results[i].name === undefined? title.innerText = json.results[i].title : title.innerText = json.results[i].name
      }
     }
+url.searchParams.has("search") && json.results.length == 0? document.getElementById('searchdiv').innerHTML = `<hr style="opacity:0%; width:100%"> <h1 style='color:grey; text-align:center'>${title}</h1><br><p style='color:grey; text-align:center'>There Was No Tv Shows/Movies Found With This Name</p>` : window.alert(23)
   }
   catch(er){
     console.error(`${er.message}`)
   } 
 }
-if(url.searchParams.has("search")){cl(`https://api.themoviedb.org/3/search/multi?query=${atob(url.searchParams.get('search'))}&api_key=d93115754010beb32ae8956c26dbc590&sort_by=popularity.desc`, `"${atob(url.searchParams.get('search'))}"`, 'searchdiv'); document.querySelector("#search").value = atob(url.searchParams.get('search'))} else{cl('https://api.themoviedb.org/3/discover/movie?include_adult=false&language=en-US&page=1&sort_by=popularity.desc&api_key=d93115754010beb32ae8956c26dbc590', 'Movies', 'movies') ; cl(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=en-US&page=1&sort_by=vote_average.desc&vote_count.gte=200&api_key=d93115754010beb32ae8956c26dbc590`, 'Tv', 'shows') ;cl(`https://api.themoviedb.org/3/movie/now_playing?api_key=d93115754010beb32ae8956c26dbc590`, 'In theaters', 'inth'); }
+if(url.searchParams.has("search")){cl(`https://api.themoviedb.org/3/search/multi?query=${decodeURIComponent(url.searchParams.get('search'))}&api_key=d93115754010beb32ae8956c26dbc590&sort_by=popularity.desc`, `"${decodeURIComponent(url.searchParams.get('search'))}"`, 'searchdiv'); document.querySelector("#search").value = decodeURIComponent(url.searchParams.get('search'))} else{cl('https://api.themoviedb.org/3/discover/movie?include_adult=false&language=en-US&page=1&sort_by=popularity.desc&api_key=d93115754010beb32ae8956c26dbc590', 'Movies', 'movies') ; cl(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=en-US&page=1&sort_by=vote_average.desc&vote_count.gte=200&api_key=d93115754010beb32ae8956c26dbc590`, 'Tv', 'shows') ;cl(`https://api.themoviedb.org/3/movie/now_playing?api_key=d93115754010beb32ae8956c26dbc590`, 'In theaters', 'inth'); }
 </script>
 <style>
   *{font-family:roboto}
@@ -93,7 +87,7 @@ if(url.searchParams.has("search")){cl(`https://api.themoviedb.org/3/search/multi
     100% {opacity:1;  visibility: visible;}
   }
   .div{
-  ;transition:100ms ;opacity:0% ;animation:fade 0.5s forwards;float:left; gap:20px; margin:5px ;height:270px; background-color:#404040; width:200px; border-radius:10px; background-size:cover; background-repeat: no-repeat; background-position: center; color:black
+  transition:100ms ;opacity:0% ;animation:fade 0.5s forwards;float:left; gap:20px; margin:5px ;height:270px; background-color:#404040; width:200px; border-radius:10px; background-size:cover; background-repeat: no-repeat; background-position: center; color:black
   } 
     .div:hover {border-radius:20px; width:205px}
   .p{
