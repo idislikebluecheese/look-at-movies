@@ -71,7 +71,7 @@ div.style.animationDelay = `${i * 0.05}s`
 json.results[i].name === undefined? title.innerText = json.results[i].title : title.innerText = json.results[i].name
      }
     }
-url.searchParams.has("search") && json.results.length == 0? document.getElementById('searchdiv').innerHTML = `<hr style="opacity:0%; width:100%"> <h1 style='color:grey; text-align:center'>${title}</h1><br><p style='color:grey; text-align:center'>There Was No Tv Shows/Movies Found With This Name</p>` : window.alert(23)
+url.searchParams.has("search") && json.results.length == 0? document.getElementById('searchdiv').innerHTML = `<hr style="opacity:0%; width:100%"> <h1 style='color:grey; text-align:center'>${title}</h1><br><p style='color:grey; text-align:center'>There Was No Tv Shows/Movies Found With This Name</p>` : null
   }
   catch(er){
     console.error(`${er.message}`)
