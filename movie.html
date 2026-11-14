@@ -2,11 +2,13 @@
     <title>FreeStreamer 🎬</title>
       <link rel="icon" href="https://lh3.googleusercontent.com/a/ACg8ocJfPub45nyrkEzgLDZtsVbK4Yn2UPriGZwcNHIPVoVMxvcKcA44=s260-c-no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   </head>
 <body>
-  <dialog style="display:none; width:50%; height:50%; position:fixed; color:#b3b3b3; background: rgba(98, 98, 98, 0.5); border-radius:10px; border: 1px solid rgba(98, 98, 98, 0.3);; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); backdrop-filter: blur(9px); overflow:scroll"><button style="color:red; background-color:#800000; hover:none" onclick="document.querySelector(`dialog`).style.display = `none`">
+  <dialog style="display:none; width:50%; height:50%; position:fixed; color:#b3b3b3; background: rgba(98, 98, 98, 0.5); border-radius:10px; border: 1px solid rgba(98, 98, 98, 0.3);; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); backdrop-filter: blur(9px); overflow:scroll"><button style="color:red; background-color:#800000; cursor:pointer" onclick="document.querySelector(`dialog`).style.display = `none`">
     X
     </button><h1>
     Info
@@ -14,13 +16,13 @@
     
     </p></dialog>
   <header>
-  <a id='title'><div>
+  <a id='title' href="/"><div>
       <h1 style="">
       <img src="https://lh3.googleusercontent.com/a/ACg8ocJfPub45nyrkEzgLDZtsVbK4Yn2UPriGZwcNHIPVoVMxvcKcA44=s100-c-no" style="margin-top:-15px ; border-radius:30px; margin-left:-25px "> FreeStreamer
       </h1></div></a>
   </header>
   <div>
-  <iframe id="frame" frameborder="0" allowfullscreen></iframe>
+  <iframe id="frame" frameborder="0" allowfullscreen allow="encrypted-media"></iframe>
     <button onclick='ofs()' style="height:20px; width:70px; text-align:center">
       fullscreen
     </button>
@@ -30,8 +32,11 @@
         Servers
       </p>
       <p style="color:grey">
-      one dont work try a diffrent one
+      find one that works
     </p>
+      <button onclick="cinezo()">
+    cinezo
+  </button>
   <button onclick="embedsu()" id="embedsu">
     embed.su
   </button>
@@ -64,13 +69,21 @@
   
 </body>
 <script>
-          document.addEventListener("contextmenu", (e) => e.preventDefault());
-      document.addEventListener("keydown", (e) => {if(e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.shiftKey && e.keyCode === 74) || (e.ctrlKey && e.keyCode === 85)){e.preventDefault()}})
-  document.addEventListener("keydown", (ev) => {if(ev.key == 'f'){ofs()} else if(ev.key == 'i'){if(document.querySelector('dialog').style.display == 'block'){document.querySelector('dialog').style.display = 'none'} else{document.querySelector('dialog').style.display = 'block'}}})
+  //i am writing this on 11/13/26
+  //yes i know this code sucks
+  //but i made this over 2 years ago
+  //and i am to lazy to fix it
+  //so it will remain the same
+  //besides.
+  //why are you here, genuinely?
+  //you chose to view my sloppy code out of all the things your life had to offer
+  //if u want to steal my api key go ahead!
+  //its not mine anyway.
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+  document.addEventListener("keydown", (e) => {if(e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.shiftKey && e.keyCode === 74) || (e.ctrlKey && e.keyCode === 85)){e.preventDefault()}})
+  document.addEventListener("keydown", (ev) => {if(ev.key === 'f'){ofs()} else if(ev.key == 'i'){if(document.querySelector('dialog').style.display == 'block'){document.querySelector('dialog').style.display = 'none'} else{document.querySelector('dialog').style.display = 'block'}}})
    let url = new URL(window.location.href)
-   let host = 'look-at-movies.glitch.me'
    //window.onload = function(){if(url.hostname != host){document.body.innerHTML = 'nah'}}
-  document.querySelector('#title').href = `https://${url.hostname}/look-at-movies`
 function ofs() {
  var elem = document.querySelector('#frame')
   if (elem.requestFullscreen) {
@@ -86,29 +99,29 @@ async function info(){
   try{
     const res = await fetch(urll)
     const json = await res.json()
-        if(res.status == 404){window.alert("Invalid TMDB id"); window.location.href = `https://${url.hostname}/look-at-movies`}
+        if(res.status === 404){window.alert("Invalid TMDB id"); window.location.href = `https://${url.hostname}/look-at-movies`}
     document.title = `FreeStreamer 🎬 - ${json.title}`
     if(!res.ok){throw new Error(`code ${res.status}`)}
-    document.querySelector('#infop').innerText = `original_title: ${json.original_title}
-  release_date: ${json.release_date}
-  homepage: ${json.homepage}
-  vote_count: ${json.vote_count}
-  id: ${json.id}
-  imdb_url: https://imdb.com/title/${json.imdb_id}
-  imdb_id: ${json.imdb_id}
-  poster_path: ${json.poster_path}
-  backdrop_path: ${json.backdrop_path}
-  vote_average: ${json.vote_average}
-  runtime (minutes): ${json.runtime}
-  popularity: ${json.popularity}
-  status: ${json.status}
-  overview: [${json.overview}]
-  `
+    document.querySelector('#infop').innerHTML = `<h1>${json.original_title}</h1>
+<p><strong>Release Date:</strong> ${json.release_date}</p>
+<p><strong>Homepage:</strong> <a href="${json.homepage}" target="_blank">${json.homepage}</a></p>
+<p><strong>Vote Count:</strong> ${json.vote_count}</p>
+<p><strong>ID:</strong> ${json.id}</p>
+<p><strong>IMDb:</strong> <a href="https://imdb.com/title/${json.imdb_id}" target="_blank">View on IMDb</a></p>
+<p><strong>IMDb ID:</strong> ${json.imdb_id}</p>
+<p><strong>Poster:</strong> <a href="https://image.tmdb.org/t/p/w500/${json.poster_path}" target="_blank">Poster Path</a></p>
+<p><strong>Backdrop:</strong> <a href="https://image.tmdb.org/t/p/w500/${json.backdrop_path}" target="_blank">Backdrop Path</a></p>
+<p><strong>Vote Average:</strong> ${json.vote_average}</p>
+<p><strong>Runtime:</strong> ${json.runtime} minutes</p>
+<p><strong>Popularity:</strong> ${json.popularity}</p>
+<p><strong>Status:</strong> ${json.status}</p>
+<p><strong>Overview:</strong> ${json.overview}</p>`
   }
   catch(er){
     console.error(er.message)
   }
 }
+function cinezo(){document.querySelector('#frame').src = `https://player.cinezo.live/embed/movie/${url.searchParams.get("id")}`}
 function multi(){document.querySelector('#frame').src = `https://multiembed.mov/?video_id=${url.searchParams.get("id")}&tmdb=1`};
 function superr(){document.querySelector('#frame').src = `https://www.2embed.to/embed/imdb/movie?id=${url.searchParams.get('id')}`};
 function vip(){document.querySelector('#frame').src = ` https://multiembed.mov/directstream.php?video_id=${url.searchParams.get('id')}&tmdb=1`};
@@ -117,10 +130,11 @@ function movieclub(){document.querySelector('#frame').src = `https://moviesapi.c
 function embedsu(){document.querySelector('#frame').src = `https://embed.su/embed/movie/${url.searchParams.get('id')}`}
 function sstream(){document.querySelector('#frame').src = `https://player.videasy.net/movie/${url.searchParams.get('id')}?autoplay=1?autoplay=1`}
 function vidfast(){document.querySelector('#frame').src = `https://vidfast.pro/movie/${url.searchParams.get('id')}?autoPlay=true`}
-  embedsu()
+  cinezo()
   info()
 </script>
 <style>
+  /*my code is horrendous😭😭*/
   *{font-family:roboto}
   #frame{border:solid; width:100%; background-color:grey; height:90%; border-radius:5px; border-width:1px}
   .server{border:solid; border-width:1px; display:block; width:15%; border-radius:10px; text-align:center}
