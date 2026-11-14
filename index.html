@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
 <title>FreeStreamer 🎬</title>
@@ -6,6 +6,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body style="background-color:#1d1d1d">
           <input placeholder="Search for movie or show"  id="search">
@@ -37,7 +39,7 @@
     //window.onload = () => {if(url.hostname != 'look-at-movies.glitch.me'){document.body.innerHTML = 'NAH';}}
 document.addEventListener("contextmenu", (e) => e.preventDefault());
     document.addEventListener("keydown", (e) => {if(e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.shiftKey && e.keyCode === 74) || (e.ctrlKey && e.keyCode === 85)){e.preventDefault()}})
-    document.querySelector('#search').addEventListener("change", (ev) => {document.querySelector('#search').value == ''? window.location.href = `https://${url.hostname}/look-at-movies` : window.location.href = `https://${url.hostname}/look-at-movies/?search=${encodeURIComponent(document.querySelector('#search').value.trim())}`}) 
+    document.querySelector('#search').addEventListener("change", (ev) => {document.querySelector('#search').value == ''? window.location.reload() : window.location.href = `/?search=${encodeURIComponent(document.querySelector('#search').value.trim())}`}) 
 async function cl(url, title, id){
   const api = url
   try{
@@ -58,7 +60,7 @@ async function cl(url, title, id){
 href.appendChild(div)
 div.appendChild(rating)
 if(json.results[i].media_type != undefined){var tvormovie = json.results[i].media_type; if(tvormovie == 'tv'){var sss = '&s=1&e=1'} else{var sss = ''}} else if(json.results[i].name != undefined){var tvormovie = 'tv'; var sss = '&s=1&e=1'} else{var tvormovie = 'movie'; var sss = ''}
-href.href = `https://${url.host}/look-at-movies/${tvormovie}.html?id=${json.results[i].id}${sss}`
+href.href = `/${tvormovie}.html?id=${json.results[i].id}${sss}`
 const title = document.createElement("p")
 div.appendChild(title)
 
