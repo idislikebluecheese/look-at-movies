@@ -4,7 +4,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  </head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+</head>
 <body style="padding:0px">
   <dialog style="overflow-y:auto ;display:none; width:50%; max-height:60%; position:fixed; color:#b3b3b3; background: rgba(98, 98, 98, 0.5); border-radius:10px; border: 1px solid rgba(98, 98, 98, 0.3);; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(9px); margin-top:0px"><button style="color:red; background-color:#800000; hover:none" onclick="document.querySelector(`dialog`).style.display = `none`">
     X
@@ -12,14 +14,14 @@
     Info
     </h1><p id="infop"></p> <p id="infopp"></p><p id="infoppp"></p></dialog>
   <header>
-  <a id='title'><div>
+  <a id='title' href="/"><div>
       <h1 style="">
       <img src="https://lh3.googleusercontent.com/a/ACg8ocJfPub45nyrkEzgLDZtsVbK4Yn2UPriGZwcNHIPVoVMxvcKcA44=s100-c-no" style="margin-top:-15px ; border-radius:30px; margin-left:-25px ;  "> FreeStreamer
       </h1></div></a>
   </header>
   <div>
   <inline id="me">
-   <iframe id="frame" frameborder="0" allowfullscreen></iframe> 
+   <iframe id="frame" frameborder="0" allowfullscreen allow="encrypted-media"></iframe> 
          <div class="epdiv">
            <select id="select">
       
@@ -41,8 +43,11 @@
         Servers
       </p>
       <p style="color:grey">
-      one dont work try a diffrent one
+      find one that works
     </p>
+  <button onclick="cinezo()">
+    cinezo
+  </button>
   <button onclick="embedsu()" id="embedsu">
     embed.su
   </button>
@@ -89,9 +94,7 @@
   document.querySelector("#searchep").addEventListener("change", () => {if(document.querySelector('#selectep').value == 'Name'){var nu = 0} else{var nu = 1};ser(document.querySelector("#searchep").value.toLowerCase(), nu)})
   document.addEventListener("keydown", (ev) => {if(ev.key == 'f'){ofs()} else if(ev.key == 'i'){if(document.querySelector('dialog').style.display == 'block'){document.querySelector('dialog').style.display = 'none'} else{document.querySelector('dialog').style.display = 'block'}}})
    let url = new URL(window.location.href)
-   let host = 'look-at-movies.glitch.me'
   window.onload = function(){document.querySelector(".epdiv").style["max-height"] = document.querySelector("#frame").clientHeight}
-  document.querySelector('#title').href = `https://${url.hostname}/look-at-movies`
 function ofs() {
  var elem = document.querySelector('#frame')
   if (elem.requestFullscreen) {
@@ -143,76 +146,82 @@ async function info(){
     const idres = await fetch(ids)
     const jsonids = await idres.json()
     if(!res.ok){throw new Error(`code ${res.status}`)}
-        if(res.status == 404){window.alert("Invalid TMDB id"); window.location.href = `https://${url.hostname}/look-at-movies`}
+        if(res.status == 404){window.alert("Invalid TMDB id"); window.location.href = `/`}
         document.title = `FreeStreamer 🎬 - ${json.name}`
-    document.querySelector('#infop').innerText = `
-    𝗦𝗲𝗿𝗶𝗲𝘀 𝗜𝗻𝗳𝗼
-    first_air_date: ${json.first_air_date}
-  last_air_date: ${json.last_air_date}
-  name: ${json.name}
-  homepage: ${json.homepage}
-  vote_count: ${json.vote_count}
-  id: ${json.id}
-  imdb_id: ${jsonids.imdb_id}
-  tvdb_id: ${jsonids.tvdb_id}
-  imdb_title_page: https://imdb.com/title/${jsonids.imdb_id}
-  episodehive_page: https://episodehive.com/tv-shows/${json.name.toLowerCase().replaceAll(" ", "-").replaceAll(/[:.\\/]/g, "")}
-  vote_average: ${json.vote_average}
-  popularity: ${json.popularity}
-  number_of_episodes: ${json.number_of_episodes}
-  number_of_seasons: ${json.number_of_seasons}
-  status: ${json.status}
-  type: ${json.type}
-  poster_path: ${json.poster_path}
-  backdrop_path: ${json.backdrop_path}
-  overview: [${json.overview}]
-  `
+    document.querySelector('#infop').innerHTML = `<h2>Series Info</h2>
+
+<p><strong>First Air Date:</strong> ${json.first_air_date}</p>
+<p><strong>Last Air Date:</strong> ${json.last_air_date}</p>
+<p><strong>Name:</strong> ${json.name}</p>
+<p><strong>Homepage:</strong> <a href="${json.homepage}" target="_blank">${json.homepage}</a></p>
+<p><strong>Vote Count:</strong> ${json.vote_count}</p>
+<p><strong>ID:</strong> ${json.id}</p>
+<p><strong>IMDb ID:</strong> ${jsonids.imdb_id}</p>
+<p><strong>TVDB ID:</strong> ${jsonids.tvdb_id}</p>
+
+<p><strong>IMDb:</strong> <a href="https://imdb.com/title/${jsonids.imdb_id}" target="_blank">View on IMDb</a></p>
+
+<p><strong>EpisodeHive:</strong> <a href="https://episodehive.com/tv-shows/${json.name.toLowerCase().replaceAll(" ", "-").replaceAll(/[:.\\/]/g, "")}" target="_blank">View on EpisodeHive</a></p>
+
+<p><strong>Vote Average:</strong> ${json.vote_average}</p>
+<p><strong>Popularity:</strong> ${json.popularity}</p>
+<p><strong>Number of Episodes:</strong> ${json.number_of_episodes}</p>
+<p><strong>Number of Seasons:</strong> ${json.number_of_seasons}</p>
+<p><strong>Status:</strong> ${json.status}</p>
+<p><strong>Type:</strong> ${json.type}</p>
+
+<p><strong>Poster:</strong> <a href="https://image.tmdb.org/t/p/w500${json.poster_path}" target="_blank">Poster Path</a></p>
+<p><strong>Backdrop:</strong> <a href="https://image.tmdb.org/t/p/w500${json.backdrop_path}" target="_blank">Backdrop Path</a></p>
+
+<p><strong>Overview:</strong> ${json.overview}</p>`
     
   }
   catch(er){
    document.querySelector('#infop').innerText = `    𝗦𝗲𝗿𝗶𝗲𝘀 𝗜𝗻𝗳𝗼
 Could not retrive Episode info
-[${er.message}]
+"${er.message}"
 `
     console.error(er.message)
   }
   try{const res = await fetch(urlll)
     const json = await res.json()
     if(!res.ok){throw new Error(`code ${res.status}`)}
-    document.querySelector('#infopp').innerText = `
-    𝗦𝗲𝗮𝘀𝗼𝗻 𝗜𝗻𝗳𝗼
-    name: ${json.name}
-    season_number: ${json.season_number}
-    air_date: ${json.air_date}
-    number_of_episodes: ${json.episodes.length}
-    id: ${json.id}
-    vote_average: ${json.vote_average}
-    poster_path: ${json.poster_path}
-    overview: [${json.overview}]
-    `
+    document.querySelector('#infopp').innerHTML = `<h2>Season Info</h2>
+
+<p><strong>Name:</strong> ${json.name}</p>
+<p><strong>Season Number:</strong> ${json.season_number}</p>
+<p><strong>Air Date:</strong> ${json.air_date}</p>
+<p><strong>Number of Episodes:</strong> ${json.episodes.length}</p>
+<p><strong>ID:</strong> ${json.id}</p>
+<p><strong>Vote Average:</strong> ${json.vote_average}</p>
+
+<p><strong>Poster:</strong> <a href="https://image.tmdb.org/t/p/w500${json.poster_path}" target="_blank">Poster Path</a></p>
+
+<p><strong>Overview:</strong> ${json.overview}</p>`
     }
   catch(er){
 document.querySelector('#infopp').innerText = `    𝗦𝗲𝗮𝘀𝗼𝗻 𝗜𝗻𝗳𝗼
 Could not retrive Episode info
-[${er.message}]
+"${er.message}"
 `
     console.error(er.message)  }
    try{const res = await fetch(urllll)
     const json = await res.json()
     if(!res.ok){throw new Error(`code ${res.status}`)}
-    document.querySelector('#infoppp').innerText = `
-    𝗘𝗽𝗶𝘀𝗼𝗱𝗲 𝗜𝗻𝗳𝗼
-    episode_number: ${json.episode_number}
-    runtime (minutes): ${json.runtime}
-    season_number: ${json.season_number}
-    name: ${json.name}
-    air_date: ${json.air_date}
-    vote_average: ${json.vote_average}
-    vote_count: ${json.vote_count}
-    episode_number (series): ${await listep(json.name.toLowerCase())}
-    still_path: ${json.still_path}
-    overview: [${json.overview}]
-    `
+    document.querySelector('#infoppp').innerHTML = `<h2>Episode Info</h2>
+
+<p><strong>Episode Number:</strong> ${json.episode_number}</p>
+<p><strong>Runtime (Minutes):</strong> ${json.runtime}</p>
+<p><strong>Season Number:</strong> ${json.season_number}</p>
+<p><strong>Name:</strong> ${json.name}</p>
+<p><strong>Air Date:</strong> ${json.air_date}</p>
+<p><strong>Vote Average:</strong> ${json.vote_average}</p>
+<p><strong>Vote Count:</strong> ${json.vote_count}</p>
+<p><strong>Episode Number (Series):</strong> ${await listep(json.name.toLowerCase())}</p>
+
+<p><strong>Still:</strong> <a href="https://image.tmdb.org/t/p/w500/${json.still_path}" target="_blank">Still Path</a></p>
+
+<p><strong>Overview:</strong> ${json.overview}</p>`
     }
   catch(er){
     document.querySelector('#infoppp').innerText = `    𝗘𝗽𝗶𝘀𝗼𝗱𝗲 𝗜𝗻𝗳𝗼
@@ -265,7 +274,7 @@ try{
     aa.appendChild(op)
     op.innerText = `Episode ${i}: ${json.episodes[i - 1].name}`
     op.className = `episode${i}`
-    aa.href = `https://${url.host}/look-at-movies/tv.html?id=${url.searchParams.get("id")}&s=${season}&e=${i}` //await listep(json.name.toLowerCase())     document.querySelector("#nextb").innerText = ``
+    aa.href = `/tv.html?id=${url.searchParams.get("id")}&s=${season}&e=${i}` //await listep(json.name.toLowerCase())     document.querySelector("#nextb").innerText = ``
       
   }
    if(season == url.searchParams.get('s')){document.querySelector(`.episode${url.searchParams.get('e')}`).style.color = '#77777e';
@@ -277,8 +286,8 @@ try{
   var backep = JSON.parse(await ser(null, 3))[epnum - 2]
   var bhelper = [0, 0]
 if(url.searchParams.get("s") == 1 && url.searchParams.get("e") == 1){document.querySelector("#backb").innerText = ''; document.querySelector("#backb").style = 'display:none';document.querySelector("#nextb").style.width = '100%' ; bhelper[0] = 1}  else if(epnum == jsonn.number_of_episodes){document.querySelector("#nextb").innerText = ''; document.querySelector("#nextb").style.display = 'none';document.querySelector("#backb").style.width = '100%' ; bhelper[1] = 1}
-  if(bhelper[0] == 0){ document.querySelector("#backb").innerText = `Back S${backep[2]} E${backep[1]}`; document.querySelector("#backa").href = `https://${url.host}/look-at-movies/tv.html?id=${url.searchParams.get('id')}&e=${backep[1]}&s=${backep[2]}`; document.querySelector("#backb").style.display = 'inline'} 
-  if(bhelper[1] == 0){  document.querySelector("#nextb").innerText = `Next S${nextep[2]} E${nextep[1]}`; document.querySelector("#nexta").href = `https://${url.host}/look-at-movies/tv.html?id=${url.searchParams.get('id')}&e=${nextep[1]}&s=${nextep[2]}`; document.querySelector("#nextb").style.display = 'inline'}
+  if(bhelper[0] == 0){ document.querySelector("#backb").innerText = `Back S${backep[2]} E${backep[1]}`; document.querySelector("#backa").href = `/tv.html?id=${url.searchParams.get('id')}&e=${backep[1]}&s=${backep[2]}`; document.querySelector("#backb").style.display = 'inline'} 
+  if(bhelper[1] == 0){  document.querySelector("#nextb").innerText = `Next S${nextep[2]} E${nextep[1]}`; document.querySelector("#nexta").href = `/tv.html?id=${url.searchParams.get('id')}&e=${nextep[1]}&s=${nextep[2]}`; document.querySelector("#nextb").style.display = 'inline'}
      
 }
   catch(er){
@@ -287,6 +296,7 @@ if(url.searchParams.get("s") == 1 && url.searchParams.get("e") == 1){document.qu
 }
   episodes(url.searchParams.get("s"))
   document.querySelector('#select').addEventListener('change', () => {episodes(document.querySelector("#select").selectedIndex + 1)})
+function cinezo(){document.querySelector('#frame').src = `https://player.cinezo.live/embed/tv/${url.searchParams.get("id")}/${url.searchParams.get("s")}/${url.searchParams.get("e")}`}
 function multi(){document.querySelector('#frame').src = `https://multiembed.mov/?video_id=${url.searchParams.get("id")}&tmdb=1&s=${url.searchParams.get("s")}&e=${url.searchParams.get("e")}`};
 function superr(){document.querySelector('#frame').src = `https://www.2embed.cc/embedtv/${url.searchParams.get("id")}&s=${url.searchParams.get("s")}&e=${url.searchParams.get("e")}`};
 function vip(){document.querySelector('#frame').src = `https://multiembed.mov/directstream.php?video_id=${url.searchParams.get("id")}&tmdb=1&s=${url.searchParams.get("s")}&e=${url.searchParams.get("e")}`};
@@ -295,7 +305,7 @@ function embedsu(){document.querySelector('#frame').src = `https://embed.su/embe
 function movieclub(){document.querySelector('#frame').src = `https://moviesapi.club/tv/${url.searchParams.get("id")}-${url.searchParams.get("s")}-${url.searchParams.get("e")}`}
 function vidfast(){document.querySelector('#frame').src = `https://vidfast.pro/tv/${url.searchParams.get('id')}/${url.searchParams.get('s')}/${url.searchParams.get('e')}?autoPlay=true`}
 function sstream(){document.querySelector('#frame').src = `https://player.videasy.net/tv/${url.searchParams.get("id")}/${url.searchParams.get("s")}/${url.searchParams.get("e")}?autoplay=1?autoplay=1&muted=1`}
-embedsu()
+cinezo()
   info()
   async function rep(){
   const urll = `https://api.themoviedb.org/3/tv/${url.searchParams.get("id")}?api_key=d93115754010beb32ae8956c26dbc590`
@@ -317,7 +327,7 @@ try{
   var info = info.slice(1)
   var info = `[${info}]`
     const rands = Math.floor(Math.random() * json.number_of_episodes) + 1;
-window.location.href = `https://${url.host}/look-at-movies/tv.html?id=${url.searchParams.get('id')}&s=${JSON.parse(info)[rands - 1][2]}&e=${JSON.parse(info)[rands - 1][1]}`
+window.location.href = `/tv.html?id=${url.searchParams.get('id')}&s=${JSON.parse(info)[rands - 1][2]}&e=${JSON.parse(info)[rands - 1][1]}`
 }
     catch(er){
       window.alert(er.message)
@@ -345,7 +355,7 @@ try{
   if(!res.ok){throw Error(`code ${res.status}`)} 
   var info = info.slice(1)
   var info = `[${info}]`
-  if(type == 1){if(JSON.parse(info)[search - 1]){window.alert(`Found it!, redirecting you to [${JSON.parse(info)[search - 1][0]} episode: ${JSON.parse(info)[search - 1][1]} season: ${JSON.parse(info)[search - 1][2]}]`); window.location.href = `https://${url.host}/look-at-movies/tv.html?id=${url.searchParams.get('id')}&s=${JSON.parse(info)[search - 1][2]}&e=${JSON.parse(info)[search - 1][1]}`} else{window.alert(`Sorry but episode number ${search} does not exist. the most recent episode is ${JSON.parse(info).length}`)}} else{for(var o = 1; o<=JSON.parse(info).length; o++){var foundit = 0 ;if(JSON.parse(info)[o - 1][0].toLowerCase() == search){window.alert(`Found it!, redirecting you to [${JSON.parse(info)[o - 1][0]} episode: ${JSON.parse(info)[o - 1][1]} season: ${JSON.parse(info)[o - 1][2]}]`); window.location.href = `https://${url.host}/look-at-movies/tv.html?id=${url.searchParams.get('id')}&s=${JSON.parse(info)[o - 1][2]}&e=${JSON.parse(info)[o - 1][1]}`; var foundit = 1 ;break}
+  if(type == 1){if(JSON.parse(info)[search - 1]){window.alert(`Found it!, redirecting you to [${JSON.parse(info)[search - 1][0]} episode: ${JSON.parse(info)[search - 1][1]} season: ${JSON.parse(info)[search - 1][2]}]`); window.location.href = `/tv.html?id=${url.searchParams.get('id')}&s=${JSON.parse(info)[search - 1][2]}&e=${JSON.parse(info)[search - 1][1]}`} else{window.alert(`Sorry but episode number ${search} does not exist. the most recent episode is ${JSON.parse(info).length}`)}} else{for(var o = 1; o<=JSON.parse(info).length; o++){var foundit = 0 ;if(JSON.parse(info)[o - 1][0].toLowerCase() == search){window.alert(`Found it!, redirecting you to [${JSON.parse(info)[o - 1][0]} episode: ${JSON.parse(info)[o - 1][1]} season: ${JSON.parse(info)[o - 1][2]}]`); window.location.href = `/tv.html?id=${url.searchParams.get('id')}&s=${JSON.parse(info)[o - 1][2]}&e=${JSON.parse(info)[o - 1][1]}`; var foundit = 1 ;break}
 
 }
   if(foundit == 0 && type != 3){window.alert("Sorry we could not find what you were looking for")}}
